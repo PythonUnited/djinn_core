@@ -6,7 +6,7 @@ from django.conf import settings
 register = Library()
 
 
-@register.inclusion_tag('pgutils/snippets/css.html')
+@register.inclusion_tag('djinn_core/snippets/css.html')
 def list_plugin_css(static_url):
 
     css = []
@@ -18,7 +18,7 @@ def list_plugin_css(static_url):
     return {"plugin_css": css, "STATIC_URL": static_url}
 
 
-@register.inclusion_tag('pgutils/snippets/js.html')
+@register.inclusion_tag('djinn_core/snippets/js.html')
 def list_plugin_js(static_url):
 
     js = []
