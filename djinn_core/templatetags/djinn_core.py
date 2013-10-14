@@ -15,6 +15,21 @@ def list_plugin_css(static_url):
                                                       name="css"):        
         css.extend(entrypoint.load()())
 
+    def mkcss(link):
+
+        props = {'media': 'screen'}
+
+        if hasattr(link, "__iter__"):
+            props['href'] = link[0]
+            if len(link) > 1:
+                props['media'] = link[1]            
+        else:
+            props['href'] = link
+
+        return props
+
+    css = map(mkcss, css)
+
     return {"plugin_css": css, "STATIC_URL": static_url}
 
 

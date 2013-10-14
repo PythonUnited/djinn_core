@@ -1,3 +1,5 @@
 {% for css in plugin_css %}
-<link href="{{ STATIC_URL }}css/{{ css }}" rel="stylesheet">
+<link href="{{ STATIC_URL }}css/{{ css.href }}" 
+      media="{{ css.media }}"
+      rel="stylesheet">
 {% endfor %}

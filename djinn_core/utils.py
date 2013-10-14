@@ -1,3 +1,9 @@
+import pkg_resources
+import os
+from django.utils.importlib import import_module
+from django.core.exceptions import ImproperlyConfigured
+
+
 def _class_implements(clazz, superclazz, check_self=True):
 
     well_does_it = False
@@ -27,3 +33,19 @@ def extends(clazz, otherclazz):
     """ Does the class extend the other one? """
 
     return _class_implements(clazz, otherclazz, check_self=False)
+
+
+def find_locale_dirs():
+
+    locale_dirs = []
+
+    for entrypoint in pkg_resources.iter_entry_points(group="djinn.app"):
+
+        locale_dir = os.path.join(entrypoint.dist.location, 
+                                  entrypoint.module_name,
+                                  'locale')
+
+        if os.path.isdir(locale_dir):
+            locale_dirs.append(locale_dir)
+
+    return locale_dirs
