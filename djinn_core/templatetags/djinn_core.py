@@ -59,4 +59,9 @@ def messageclass(messages):
     
     """ Filter level from messages and return str representation """
 
-    return MESSAGE_LEVELS.get(messages.level, "info")
+    if len(messages):
+        level = messages._loaded_messages[0].level
+    else:
+        level = 20
+
+    return MESSAGE_LEVELS.get(level, "info")
