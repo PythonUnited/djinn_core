@@ -6,6 +6,15 @@ from django.conf import settings
 register = Library()
 
 
+MESSAGE_LEVELS = {
+    10: "debug",
+    20: "info",
+    25: "success",
+    30: "warning",
+    40: "error"
+}
+
+
 @register.inclusion_tag('djinn_core/snippets/css.html')
 def list_plugin_css(static_url):
 
@@ -43,3 +52,11 @@ def list_plugin_js(static_url):
         js.extend(entrypoint.load()())
 
     return {"plugin_js": js, "STATIC_URL": static_url}
+
+
+@register.filter(name="messageclass")
+def messageclass(messages):
+    
+    """ Filter level from messages and return str representation """
+
+    return MESSAGE_LEVELS.get(messages.level, "info")
