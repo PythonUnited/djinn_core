@@ -1,6 +1,5 @@
 import pkg_resources
 from django.template import Library
-from django.conf import settings
 
 
 register = Library()

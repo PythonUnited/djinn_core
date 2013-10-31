@@ -1,7 +1,6 @@
 import os, sys
 import pkg_resources
 from django.template.loaders.app_directories import Loader as BaseLoader
-from django.template.base import TemplateDoesNotExist
 from django.utils.importlib import import_module
 from django.core.exceptions import ImproperlyConfigured
 

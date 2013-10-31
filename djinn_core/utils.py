@@ -1,7 +1,5 @@
 import pkg_resources
 import os
-from django.utils.importlib import import_module
-from django.core.exceptions import ImproperlyConfigured
 
 
 def _class_implements(clazz, superclazz, check_self=True):
