@@ -35,5 +35,7 @@ setup(name='djinn_core',
       tests_require= requires,
       test_suite="djinn_core",
       entry_points = """\
+      [djinn.app]
+      js=djinn_core:get_js
       """
       )
