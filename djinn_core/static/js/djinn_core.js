@@ -13,8 +13,6 @@ djinn.core = {
 
 $(document).ready(function() {
 
-    console.log($(".message.alert"));
-
     // Hide messages if need be
     setTimeout("$('.message.alert').hide('slow')", djinn.core.MESSAGE_TIMEOUT);
   });
