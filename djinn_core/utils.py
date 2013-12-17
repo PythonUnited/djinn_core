@@ -1,5 +1,9 @@
-import pkg_resources
-import os
+from django.contrib.contenttypes.models import ContentType
+
+
+# URN schema for objects
+#
+URN_SCHEMA = "urn:pu.in:%(object_app)s:%(object_ctype)s:%(object_id)s"
 
 
 def _class_implements(clazz, superclazz, check_self=True):
@@ -33,17 +37,32 @@ def extends(clazz, otherclazz):
     return _class_implements(clazz, otherclazz, check_self=False)
 
 
-def find_locale_dirs():
+def object_to_urn(object):
 
-    locale_dirs = []
+    """ Create A URN for the given object """
 
-    for entrypoint in pkg_resources.iter_entry_points(group="djinn.app"):
+    app_label = getattr(object, "app_label", object._meta.app_label)
+    ct_name = getattr(object, object.ct_name,
+                      object.__class__.__name__.lower())
 
-        locale_dir = os.path.join(entrypoint.dist.location, 
-                                  entrypoint.module_name,
-                                  'locale')
+    return URN_SCHEMA % {'object_app': app_label,
+                         'object_ctype': ct_name,
+                         'object_id': object.id}
 
-        if os.path.isdir(locale_dir):
-            locale_dirs.append(locale_dir)
 
-    return locale_dirs
+def urn_to_object(urn):
+
+    """ Fetch the object for this URN. If not found, return None """
+
+    parts = urn.split(":")
+
+    ctype = ContentType.objects.get(app_label=parts[2], model=parts[3])
+
+    return ctype.get_object_for_this_type(id=parts[4])
+
+
+def get_object_by_ctype_id(ctype_id, _id, app_label=None):
+
+    ctype = ContentType.objects.get(app_label=app_label, model=ctype_id)
+
+    return ctype.get_object_for_this_type(id=_id)
