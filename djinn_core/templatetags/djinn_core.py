@@ -1,5 +1,6 @@
 import pkg_resources
 from django.template import Library
+from ..utils import implements as base_implements
 
 
 register = Library()
@@ -64,3 +65,9 @@ def messageclass(messages):
         level = 20
 
     return MESSAGE_LEVELS.get(level, "info")
+
+
+@register.filter
+def implements(instance, clazz):
+
+    return base_implements(instance, clazz)
