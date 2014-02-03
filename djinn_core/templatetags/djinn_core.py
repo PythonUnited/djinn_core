@@ -1,5 +1,7 @@
 import pkg_resources
+from importlib import import_module
 from django.template import Library
+from django.db.models import get_model
 from ..utils import implements as base_implements
 
 
@@ -69,5 +71,18 @@ def messageclass(messages):
 
 @register.filter
 def implements(instance, clazz):
+
+    """ instance should be an object instance; clazz should be the
+    full dotted name of the class, or an actual class, or a model specified
+    as <app>.<model> """
+
+    if isinstance(clazz, basestring):
+
+        parts = clazz.split(".")
+
+        if len(parts) == 2:
+            clazz = get_model(*parts)
+        else:
+            clazz = getattr(import_module(".".join(parts[:-1])), parts[-1])
 
     return base_implements(instance, clazz)
