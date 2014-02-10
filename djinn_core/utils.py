@@ -12,6 +12,9 @@ def _class_implements(clazz, superclazz, check_self=True):
 
     if check_self and clazz == superclazz:
         return True
+    elif isinstance(superclazz, basestring) and \
+                    superclazz in map(lambda x: "%s.%s" %(x.__module__.split('.')[0], x.__name__), clazz.__bases__):
+        well_does_it = True
     elif superclazz in  clazz.__bases__:
         well_does_it = True
     else:
