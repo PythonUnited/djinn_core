@@ -61,7 +61,11 @@ def urn_to_object(urn):
 
     ctype = ContentType.objects.get(app_label=parts[2], model=parts[3])
 
-    return ctype.get_object_for_this_type(id=parts[4])
+    try:
+        return ctype.get_object_for_this_type(id=parts[4])
+    except:
+        return None
+
 
 
 def get_object_by_ctype_id(ctype_id, _id, app_label=None):
