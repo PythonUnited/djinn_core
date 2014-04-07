@@ -43,6 +43,8 @@ def extends(clazz, otherclazz):
 def object_to_urn(object):
 
     """ Create A URN for the given object """
+    if not object:
+        return ""
 
     app_label = getattr(object, "app_label", object._meta.app_label)
     ct_name = getattr(object, object.ct_name,
