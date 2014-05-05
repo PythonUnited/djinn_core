@@ -37,12 +37,15 @@ djinn.handle_messages = function() {
     }
   }
 
-  messages = messages.split("$")[1].replace(/\\054/g, ',').replace(/\\"/g, '"');
+  if (messages) {
 
-  messages = JSON.parse(messages);
+    messages = messages.split("$")[1].replace(/\\054/g, ',').replace(/\\"/g, '"');
 
-  djinn.show_message(messages[0][3],
-                     djinn.settings.ALERT_MAP[messages[0][2]] || "info");
+    messages = JSON.parse(messages);
+
+    djinn.show_message(messages[0][3],
+                       djinn.settings.ALERT_MAP[messages[0][2]] || "info");
+  }
 };
 
 
