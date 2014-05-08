@@ -13,9 +13,10 @@ def _class_implements(clazz, superclazz, check_self=True):
     if check_self and clazz == superclazz:
         return True
     elif isinstance(superclazz, basestring) and \
-                    superclazz in map(lambda x: "%s.%s" %(x.__module__.split('.')[0], x.__name__), clazz.__bases__):
+         superclazz in map(lambda x: "%s.%s" % (
+             x.__module__.split('.')[0], x.__name__), clazz.__bases__):
         well_does_it = True
-    elif superclazz in  clazz.__bases__:
+    elif superclazz in clazz.__bases__:
         well_does_it = True
     else:
         for base in clazz.__bases__:
@@ -67,7 +68,6 @@ def urn_to_object(urn):
         return ctype.get_object_for_this_type(id=parts[4])
     except:
         return None
-
 
 
 def get_object_by_ctype_id(ctype_id, _id, app_label=None):
