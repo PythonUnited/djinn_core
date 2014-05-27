@@ -1,3 +1,8 @@
+1.0.4
+=====
+* Added HTML truncate utils
+* messaging in JS
+
 1.0.3
 =====
  * small fixes for utilities regarding urn representation
