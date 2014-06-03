@@ -1,3 +1,7 @@
+1.0.5
+=====
+* Fix for truncate util
+
 1.0.4
 =====
 * Added HTML truncate utils

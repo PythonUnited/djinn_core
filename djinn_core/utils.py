@@ -78,8 +78,6 @@ def get_object_by_ctype_id(ctype_id, _id, app_label=None):
     return ctype.get_object_for_this_type(id=_id)
 
 
-
-
 class HTMLTruncate(HTMLParser):
 
     """ Truncating class for html fragments """
@@ -104,6 +102,7 @@ class HTMLTruncate(HTMLParser):
             return ""
 
     def handle_starttag(self, tag, attrs):
+
         if not self.done:
 
             if tag in self.singles:
@@ -117,21 +116,28 @@ class HTMLTruncate(HTMLParser):
                                                 single_marker))
 
     def handle_endtag(self, tag):
+
         if not self.done:
             if not tag in self.singles:
                 self.truncated.append("</%s>" % tag)
             self.queue.pop()
 
     def handle_data(self, data):
-        self.count += len(data)
 
-        if self.count > self.limit:
-            self.done = True
-            data = data[:(self.count - self.limit)]
+        if not self.done:
+            if self.count + len(data) > self.limit:
+                self.done = True
+                data = data[:(self.limit - self.count)]
 
-        self.truncated.append(data)
+            self.count += len(data)
+            self.truncated.append(data)
 
     def truncate(self, text):
+
+        self.done = False
+        self.count = 0
+        self.truncated = []
+        self.queue = []
 
         self.feed(text)
 
