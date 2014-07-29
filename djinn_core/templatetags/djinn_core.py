@@ -23,7 +23,7 @@ def list_plugin_css(static_url):
     css = []
 
     for entrypoint in pkg_resources.iter_entry_points(group="djinn.app",
-                                                      name="css"):        
+                                                      name="css"):
         css.extend(entrypoint.load()())
 
     def mkcss(link):
@@ -33,7 +33,7 @@ def list_plugin_css(static_url):
         if hasattr(link, "__iter__"):
             props['href'] = link[0]
             if len(link) > 1:
-                props['media'] = link[1]            
+                props['media'] = link[1]
         else:
             props['href'] = link
 
@@ -58,7 +58,7 @@ def list_plugin_js(static_url):
 
 @register.filter(name="messageclass")
 def messageclass(messages):
-    
+
     """ Filter level from messages and return str representation """
 
     if len(messages):

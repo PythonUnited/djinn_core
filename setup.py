@@ -11,7 +11,7 @@ requires = [
     ]
 
 setup(name='djinn_core',
-      version="1.0.5",
+      version="1.1.0",
       description='Djinn Intranet core',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
@@ -38,5 +38,6 @@ setup(name='djinn_core',
       entry_points="""\
       [djinn.app]
       js=djinn_core:get_js
+      urls=djinn_core:get_urls
       """
       )
