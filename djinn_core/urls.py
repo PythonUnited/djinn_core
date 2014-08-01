@@ -5,9 +5,9 @@ from views.admin import AdminView
 _urlpatterns = patterns(
     "",
 
-    url(r"^admin/?$",
+    url(r"^djinn_admin/?$",
         AdminView.as_view(),
-        name="djinn_core_index"),
+        name="djinn_admin"),
 )
 
 
