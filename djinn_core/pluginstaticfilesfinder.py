@@ -22,7 +22,7 @@ class PluginFilesFinder(AppDirectoriesFinder):
         self.storages = SortedDict()
 
         for entrypoint in pkg_resources.iter_entry_points(group="djinn.app"):
-        
+
             app = entrypoint.module_name
 
             if app in self.storages.keys():
@@ -35,7 +35,7 @@ class PluginFilesFinder(AppDirectoriesFinder):
                                                           name="statics"):
             path = entrypoint.load()()
             app = entrypoint.module_name
-            
+
             self.storages[app] = FlexiblePathStorage(app, source_dir=path)
 
         for app in self.storages.keys():
