@@ -13,16 +13,16 @@
 
     {% compress css %}
 
-    <link href="{{STATIC_URL}}bootstrap/dist/css/bootstrap.css" 
+    <link href="{{STATIC_URL}}bootstrap/2.3.1/css/bootstrap.css"
           rel="stylesheet">
     <link rel="stylesheet" 
-          href="{{STATIC_URL}}fontawesome/css/font-awesome.css" />
+          href="{{STATIC_URL}}font-awesome/css/font-awesome.css" />
 
     {% endcompress %}
 
     <script src="{{STATIC_URL}}jquery/jquery.min.js"></script>
 
-    <script src="{{STATIC_URL}}bootstrap/dist/js/bootstrap.js" 
+    <script src="{{STATIC_URL}}bootstrap/2.3.1/js/bootstrap.js"
             defer="defer"></script>
 
     {% block extra_js %}
