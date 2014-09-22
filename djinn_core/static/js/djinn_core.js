@@ -49,12 +49,18 @@ djinn.handle_messages = function() {
 };
 
 
+djinn.hide_message = function() {
+
+  $("#message").hide("slow");
+};
+
+
 djinn.show_message = function(mesg, type) {
 
   $("body").append('<div id="message" class="alert alert-' + type + '"><a class="close" data-dismiss="alert">&times;</a>' + mesg + '</div>');
-  
-  setTimeout('$("#message").hide("slow")', 5000);
-  
+
+  setTimeout(djinn.hide_message, 5000);
+
   $("#message").alert();
 };
 
@@ -87,7 +93,6 @@ djinn.update_inline = function(e) {
 
 $(document).ready(function() {
 
-  
   $(document).on("click", "a.update-inline", djinn.update_inline);
 
 });
