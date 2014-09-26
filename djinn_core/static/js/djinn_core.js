@@ -95,4 +95,34 @@ $(document).ready(function() {
 
   $(document).on("click", "a.update-inline", djinn.update_inline);
 
+  // Prevent double clicks, when the link or button has the class
+  // 'protected'. The actual handling of the event furtheron is
+  // responsible for removing the disabled class if need be.
+  //
+  $(document).on("click", "input.protected,a.protected,button.protected", function(e) {
+    $(e.currentTarget).attr("disabled", "disabled");
+  });
+
+  // Do nothing...
+  $(".protected[disabled]").click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+
+  // Protect form from double submit
+  $(document).on("submit", "form.protected", function(e) {
+
+    if ($(e.target).attr("disabled")) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      return false;
+    }
+
+    $(e.target).attr("disabled", "disabled");
+    $(e.target).find(".form-actions a,.form-actions button").attr("disabled",
+                                                                  "disabled");
+  });
+
+
 });
