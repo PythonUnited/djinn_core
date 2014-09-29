@@ -91,6 +91,31 @@ djinn.update_inline = function(e) {
 };
 
 
+/**
+ * Try to repair crappy URL's.
+ * @param url URL to repair
+ * @param proto Protocol to repair for. Default is http.
+ */
+djinn.normalizeURL = function(url, proto) {
+
+    if (proto == "email") {
+        if (!url.startsWith("mailto:")) {
+            url = "mailto:" + url;
+        }
+    } else if (proto == "https") {
+        if (!url.startsWith("https://")) {
+            url = "https://" + url;
+        }
+    } else {
+      if (!(url.startsWith("http://") || url.startsWith("https://"))) {
+          url = "http://" + url;
+      }
+    }
+
+    return url;
+};
+
+
 $(document).ready(function() {
 
   $(document).on("click", "a.update-inline", djinn.update_inline);
