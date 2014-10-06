@@ -122,16 +122,22 @@ $(document).ready(function() {
 
   // Prevent double clicks, when the link or button has the class
   // 'protected'. The actual handling of the event furtheron is
-  // responsible for removing the disabled class if need be.
+  // responsible for removing the disabled class if need be. Submit
+  // buttons aren't ever protected, since that results in not
+  // submitting the form at all...
   //
-  $(document).on("click", "input.protected,a.protected,button.protected", function(e) {
-    $(e.currentTarget).attr("disabled", "disabled");
-  });
-
+  $(document).on("click",
+                 "input.protected,a.protected,button.protected",
+                 function(e) {
+                   if ($(e.currentTarget).is([type=submit])) {
+                     return;
+                   }
+                   $(e.currentTarget).attr("disabled", "disabled");
+                 });
+  
   // Do nothing...
   $(".protected[disabled]").click(function(e) {
     e.preventDefault();
-    e.stopPropagation();
   });
 
   // Protect form from double submit
@@ -139,7 +145,6 @@ $(document).ready(function() {
 
     if ($(e.target).attr("disabled")) {
       e.preventDefault();
-      e.stopPropagation();
 
       return false;
     }

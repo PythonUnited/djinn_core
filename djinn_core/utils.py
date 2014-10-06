@@ -1,5 +1,6 @@
 from HTMLParser import HTMLParser
 from django.contrib.contenttypes.models import ContentType
+from django.conf import settings
 
 
 # URN schema for objects
@@ -13,9 +14,9 @@ def _class_implements(clazz, superclazz, check_self=True):
 
     if check_self and clazz == superclazz:
         return True
-    elif isinstance(superclazz, basestring) and \
-         superclazz in map(lambda x: "%s.%s" % (
-             x.__module__.split('.')[0], x.__name__), clazz.__bases__):
+    elif isinstance(superclazz, basestring) and superclazz in map(
+            lambda x: "%s.%s" % (
+                x.__module__.split('.')[0], x.__name__), clazz.__bases__):
         well_does_it = True
     elif superclazz in clazz.__bases__:
         well_does_it = True
@@ -78,6 +79,19 @@ def get_object_by_ctype_id(ctype_id, _id, app_label=None):
     return ctype.get_object_for_this_type(id=_id)
 
 
+def get_apps(name_filter=None):
+
+    """ TODO: Django 1.7 has this call built in """
+
+    _apps = {}
+
+    for _app in settings.INSTALLED_APPS:
+        if not name_filter or name_filter in _app:
+            _apps[_app] = __import__(_app)
+
+    return _apps
+
+
 class HTMLTruncate(HTMLParser):
 
     """ Truncating class for html fragments """
@@ -118,7 +132,7 @@ class HTMLTruncate(HTMLParser):
     def handle_endtag(self, tag):
 
         if not self.done:
-            if not tag in self.singles:
+            if tag not in self.singles:
                 self.truncated.append("</%s>" % tag)
             self.queue.pop()
 
