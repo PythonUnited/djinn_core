@@ -13,12 +13,17 @@ djinn.settings = {
 };
 
 
+/**
+ * Get the target of the given element as defined in the 'target' attribute.
+ * If that is not there, return the element itself.
+ * @param elt jQuery wrapped element
+ */
 djinn.get_target = function(elt) {
 
   if (elt.attr("target")) {
     return $(elt.attr("target"));
   } else {
-    return self;
+    return elt;
   }
 };
 
@@ -123,8 +128,8 @@ $(document).ready(function() {
   // Prevent double clicks, when the link or button has the class
   // 'protected'. The actual handling of the event furtheron is
   // responsible for removing the disabled class if need be. Submit
-  // buttons aren't ever protected, since that results in not
-  // submitting the form at all...
+  // buttons should not be protected, since that results in not
+  // submitting the form at all in some browsers...
   //
   $(document).on("click",
                  "input.protected,a.protected,button.protected",
@@ -136,7 +141,7 @@ $(document).ready(function() {
                  });
   
   // Do nothing...
-  $(".protected[disabled]").click(function(e) {
+  $(document).on("click", ".protected[disabled]", function(e) {
     e.preventDefault();
   });
 
@@ -149,9 +154,10 @@ $(document).ready(function() {
       return false;
     }
 
+    var disable_expr = ".form-actions a,.form-actions button,[type=submit]";
+
     $(e.target).attr("disabled", "disabled");
-    $(e.target).find(".form-actions a,.form-actions button").attr("disabled",
-                                                                  "disabled");
+    $(e.target).find(disable_expr).attr("disabled", "disabled");
   });
 
 
