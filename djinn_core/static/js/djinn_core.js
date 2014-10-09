@@ -141,14 +141,15 @@ $(document).ready(function() {
                  });
   
   // Do nothing...
-  $(document).on("click", ".protected[disabled]", function(e) {
-    e.preventDefault();
-  });
+  $(document).on("click", ".protected[disabled],.protected.disabled",
+                 function(e) {
+                   e.preventDefault();
+                 });
 
   // Protect form from double submit
   $(document).on("submit", "form.protected", function(e) {
 
-    if ($(e.target).attr("disabled")) {
+    if ($(e.target).is(".disabled")) {
       e.preventDefault();
 
       return false;
@@ -156,9 +157,7 @@ $(document).ready(function() {
 
     var disable_expr = ".form-actions a,.form-actions button,[type=submit]";
 
-    $(e.target).attr("disabled", "disabled");
+    $(e.target).addClass("disabled");
     $(e.target).find(disable_expr).attr("disabled", "disabled");
   });
-
-
 });
