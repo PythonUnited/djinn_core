@@ -137,14 +137,13 @@ $(document).ready(function() {
                    if ($(e.currentTarget).is([type=submit])) {
                      return;
                    }
-                   $(e.currentTarget).attr("disabled", "disabled");
+                   $(e.currentTarget).addClass("disabled");
                  });
   
   // Do nothing...
-  $(document).on("click", ".protected[disabled],.protected.disabled",
-                 function(e) {
-                   e.preventDefault();
-                 });
+  $(document).on("click", ".protected.disabled", function(e) {
+    e.preventDefault();
+  });
 
   // Protect form from double submit
   $(document).on("submit", "form.protected", function(e) {
@@ -158,6 +157,6 @@ $(document).ready(function() {
     var disable_expr = ".form-actions a,.form-actions button,[type=submit]";
 
     $(e.target).addClass("disabled");
-    $(e.target).find(disable_expr).attr("disabled", "disabled");
+    $(e.target).find(disable_expr).addClass("disabled");
   });
 });

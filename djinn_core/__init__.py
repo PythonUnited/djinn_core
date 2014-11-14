@@ -9,3 +9,8 @@ def get_urls():
 def get_js():
 
     return ["djinn_core.js"]
+
+
+def get_css():
+
+    return ["djinn_core.css"]

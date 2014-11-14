@@ -38,6 +38,7 @@ setup(name='djinn_core',
       entry_points="""\
       [djinn.app]
       js=djinn_core:get_js
+      css=djinn_core:get_css
       urls=djinn_core:get_urls
       """
       )
