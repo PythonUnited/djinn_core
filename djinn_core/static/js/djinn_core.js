@@ -134,6 +134,18 @@ $(document).ready(function() {
   $(document).on("click",
                  "input.protected,a.protected,button.protected",
                  function(e) {
+
+                   // this is a workaround for browsers not sending data of
+                   // disabled fields/buttons in submit (conform specs, by
+                   // the way)
+                   // the workaround adds a hidden field with name/value of
+                   // the submit button
+                   $('<input>').attr({
+                        type: 'hidden',
+                        value: e.currentTarget.value,
+                        name: e.currentTarget.name
+                    }).appendTo(e.currentTarget.form);
+
                    if ($(e.currentTarget).is([type=submit])) {
                      return;
                    }
