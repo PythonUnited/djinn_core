@@ -1,6 +1,7 @@
 1.2.1
 =====
 * Move to Django 1.6.x series
+* added form/button protection mechanisms
 
 1.1.1
 =====
