@@ -58,6 +58,20 @@ def object_to_urn(object):
                          'object_id': object.id}
 
 
+def urn_to_ctype_and_id(urn):
+
+    """ Fetch the ctype and object_id for this URN. If not found, return None """
+
+    parts = urn.split(":")
+
+    ctype = ContentType.objects.get(app_label=parts[2], model=parts[3])
+
+    try:
+        return ctype, parts[4]
+    except:
+        return None
+
+
 def urn_to_object(urn):
 
     """ Fetch the object for this URN. If not found, return None """

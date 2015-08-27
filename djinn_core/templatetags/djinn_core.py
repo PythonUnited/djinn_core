@@ -3,7 +3,7 @@ from importlib import import_module
 from django.template import Library
 from django.db.models import get_model
 from ..utils import implements as base_implements
-
+from ..utils import object_to_urn as utils_object_to_urn
 
 register = Library()
 
@@ -86,3 +86,8 @@ def implements(instance, clazz):
             clazz = getattr(import_module(".".join(parts[:-1])), parts[-1])
 
     return base_implements(instance, clazz)
+
+
+@register.simple_tag
+def object_to_urn(object):
+    return utils_object_to_urn(object)
