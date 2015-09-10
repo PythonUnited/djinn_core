@@ -78,17 +78,15 @@ def urn_to_object(urn):
     """ Fetch the object for this URN. If not found, return None """
 
     parts = urn.split(":")
+
     key = "contenttype-%s-%s" % (parts[2], parts[3])
     ctype = cache.get(key, None)
 
-    if ctype:
-        return ctype
-
-    ctype = ContentType.objects.get(app_label=parts[2], model=parts[3])
+    if not ctype:
+        ctype = ContentType.objects.get(app_label=parts[2], model=parts[3])
+        cache.set(key, ctype)
 
     try:
-        print "caching %s" % key
-        cache.set(key, ctype)
         return ctype.get_object_for_this_type(id=parts[4])
     except:
         return None
@@ -101,7 +99,6 @@ def get_object_by_ctype_id(ctype_id, _id, app_label=None):
     ctype = cache.get(key, None)
 
     if not ctype:
-        print "caching(2) %s" % key
         ctype = ContentType.objects.get(app_label=app_label, model=ctype_id)
         cache.set(key, ctype)
 
