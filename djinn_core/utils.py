@@ -1,6 +1,7 @@
 from HTMLParser import HTMLParser
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
+from django.core.cache import cache
 
 
 # URN schema for objects
@@ -77,10 +78,17 @@ def urn_to_object(urn):
     """ Fetch the object for this URN. If not found, return None """
 
     parts = urn.split(":")
+    key = "contenttype-%s-%s" % (parts[2], parts[3])
+    ctype = cache.get(key, None)
+
+    if ctype:
+        return ctype
 
     ctype = ContentType.objects.get(app_label=parts[2], model=parts[3])
 
     try:
+        print "caching %s" % key
+        cache.set(key, ctype)
         return ctype.get_object_for_this_type(id=parts[4])
     except:
         return None
@@ -88,7 +96,14 @@ def urn_to_object(urn):
 
 def get_object_by_ctype_id(ctype_id, _id, app_label=None):
 
-    ctype = ContentType.objects.get(app_label=app_label, model=ctype_id)
+    key = "contenttype-%s-%s" % (app_label, ctype_id)
+
+    ctype = cache.get(key, None)
+
+    if not ctype:
+        print "caching(2) %s" % key
+        ctype = ContentType.objects.get(app_label=app_label, model=ctype_id)
+        cache.set(key, ctype)
 
     return ctype.get_object_for_this_type(id=_id)
 
