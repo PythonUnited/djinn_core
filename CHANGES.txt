@@ -1,3 +1,7 @@
+1.2.3
+=====
+* caching contenttype instances
+
 1.2.2
 =====
 * allowing spaces in keywords
