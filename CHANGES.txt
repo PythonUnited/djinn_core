@@ -1,3 +1,7 @@
+1.2.5
+=====
+* made templatefilter messageclass more robust
+ 
 1.2.4
 =====
 * caching contenttype instances
