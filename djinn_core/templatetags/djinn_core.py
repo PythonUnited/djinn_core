@@ -62,7 +62,10 @@ def messageclass(messages):
     """ Filter level from messages and return str representation """
 
     if len(messages):
-        level = messages._loaded_messages[0].level
+        try:
+            level = messages._loaded_messages[0].level
+        except:
+            level = messages._queued_messages[0].level
     else:
         level = 20
 
