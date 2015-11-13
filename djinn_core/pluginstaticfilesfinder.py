@@ -2,17 +2,29 @@ import os
 import pkg_resources
 from django.utils.datastructures import SortedDict
 from django.contrib.staticfiles.finders import AppDirectoriesFinder
-from django.contrib.staticfiles.storage import AppStaticStorage
+from django.contrib.staticfiles.storage import FileSystemStorage
+from django.utils.importlib import import_module
+from django.utils._os import upath
 
 
-class FlexiblePathStorage(AppStaticStorage):
+class FlexiblePathStorage(FileSystemStorage):
+
+    prefix = None
 
     def __init__(self, app, *args, **kwargs):
+        """
+        Returns a static file storage if available in the given app.
+        """
+        # app is the actual app module
 
         self.source_dir = kwargs.get("source_dir", "static")
         del kwargs['source_dir']
 
-        super(FlexiblePathStorage, self).__init__(app, *args, **kwargs)
+        mod = import_module(app)
+        mod_path = os.path.dirname(upath(mod.__file__))
+        location = os.path.join(mod_path, self.source_dir)
+
+        super(FlexiblePathStorage, self).__init__(location, *args, **kwargs)
 
 class PluginFilesFinder(AppDirectoriesFinder):
 

@@ -1,8 +1,9 @@
 import os, sys
 import pkg_resources
-from django.template.loaders.app_directories import Loader as BaseLoader
+from django.template.loaders.base import Loader as BaseLoader
 from django.utils.importlib import import_module
 from django.core.exceptions import ImproperlyConfigured
+from django.template import Engine
 
 
 fs_encoding = sys.getfilesystemencoding() or sys.getdefaultencoding()
@@ -35,4 +36,4 @@ class SkinTemplateLoader(BaseLoader):
             template_name, template_dirs=app_template_dirs)
 
 
-_loader = SkinTemplateLoader()
+_loader = SkinTemplateLoader(Engine())
