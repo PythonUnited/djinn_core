@@ -1,4 +1,4 @@
-1.2.7
+1.2.8
 =====
 * fixed SkinTemplateLoader for django 1.8 compatibility
 
