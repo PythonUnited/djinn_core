@@ -7,11 +7,11 @@ README = open(os.path.join(here, 'README.md')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
-    'django'
+    'django>=1.8'
     ]
 
 setup(name='djinn_core',
-      version="1.2.6",
+      version="1.2.7",
       description='Djinn Intranet core',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
