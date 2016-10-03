@@ -11,7 +11,7 @@ requires = [
     ]
 
 setup(name='djinn_core',
-      version="1.2.9",
+      version="1.2.10",
       description='Djinn Intranet core',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[

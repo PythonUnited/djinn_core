@@ -1,7 +1,8 @@
 import pkg_resources
 from importlib import import_module
 from django.template import Library
-from django.db.models import get_model
+# from django.apps.apps import get_model
+from django.apps import apps
 from ..utils import implements as base_implements
 from ..utils import object_to_urn as utils_object_to_urn
 
@@ -84,7 +85,7 @@ def implements(instance, clazz):
         parts = clazz.split(".")
 
         if len(parts) == 2:
-            clazz = get_model(*parts)
+            clazz = apps.get_model(*parts)
         else:
             clazz = getattr(import_module(".".join(parts[:-1])), parts[-1])
 
