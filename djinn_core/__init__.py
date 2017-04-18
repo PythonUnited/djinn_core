@@ -1,4 +1,4 @@
-from urls import urlpatterns
+from .urls import urlpatterns
 
 
 def get_urls():
