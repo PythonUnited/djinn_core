@@ -19,7 +19,7 @@ for entrypoint in pkg_resources.iter_entry_points(group="djinn.skin"):
 
     try:
         mod = import_module(app)
-    except ImportError, e:
+    except ImportError as e:
         raise ImproperlyConfigured('ImportError %s: %s' % (app, e.args[0]))
 
     template_dir = os.path.join(os.path.dirname(mod.__file__), 'templates')

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 {% load djinn_core %}
+{% load staticfiles %}
 
 <html lang="nl">
   <head>
@@ -11,14 +12,14 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="{{STATIC_URL}}bootstrap/dist/css/bootstrap.css"
+    <link href="{% static 'bootstrap/dist/css/bootstrap.css' %}"
           rel="stylesheet">
     <link rel="stylesheet" 
-          href="{{STATIC_URL}}fontawesome/css/font-awesome.css" />
+          href="{% static 'fontawesome/css/font-awesome.css' %}" />
 
-    <script src="{{STATIC_URL}}jquery/jquery.min.js"></script>
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
 
-    <script src="{{STATIC_URL}}bootstrap/dist/js/bootstrap.js"
+    <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"
             defer="defer"></script>
 
     {% block extra_js %}

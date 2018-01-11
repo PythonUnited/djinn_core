@@ -3,6 +3,8 @@ from importlib import import_module
 from django.template import Library
 # from django.apps.apps import get_model
 from django.apps import apps
+from django.utils.safestring import SafeText
+
 from ..utils import implements as base_implements
 from ..utils import object_to_urn as utils_object_to_urn
 
@@ -31,7 +33,7 @@ def list_plugin_css(static_url):
 
         props = {'media': 'screen'}
 
-        if hasattr(link, "__iter__"):
+        if not isinstance(link, str):
             props['href'] = link[0]
             if len(link) > 1:
                 props['media'] = link[1]
@@ -40,7 +42,8 @@ def list_plugin_css(static_url):
 
         return props
 
-    css = map(mkcss, css)
+    # MJB map
+    css = [mkcss(lnk) for lnk in css]
 
     return {"plugin_css": css, "STATIC_URL": static_url}
 
@@ -80,7 +83,7 @@ def implements(instance, clazz):
     full dotted name of the class, or an actual class, or a model specified
     as <app>.<model> """
 
-    if isinstance(clazz, basestring):
+    if isinstance(clazz, SafeText):
 
         parts = clazz.split(".")
 

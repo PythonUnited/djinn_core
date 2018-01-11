@@ -1,6 +1,10 @@
 import pkg_resources
 from django.views.generic import TemplateView
-from django.core.urlresolvers import reverse
+import django
+if django.VERSION < (1, 10):
+    from django.core.urlresolvers import reverse
+else:
+    from django.urls import reverse
 
 
 class AdminMixin(object):

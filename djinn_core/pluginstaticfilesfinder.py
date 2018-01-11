@@ -1,9 +1,10 @@
 import os
 import pkg_resources
-from django.utils.datastructures import SortedDict
+# from django.utils.datastructures import SortedDict
+from collections import OrderedDict
 from django.contrib.staticfiles.finders import AppDirectoriesFinder
 from django.contrib.staticfiles.storage import FileSystemStorage
-from django.utils.importlib import import_module
+from importlib import import_module
 from django.utils._os import upath
 
 
@@ -31,7 +32,8 @@ class PluginFilesFinder(AppDirectoriesFinder):
     def __init__(self, apps=None, *args, **kwargs):
 
         self.apps = []
-        self.storages = SortedDict()
+        # self.storages = SortedDict()
+        self.storages = OrderedDict()
 
         for entrypoint in pkg_resources.iter_entry_points(group="djinn.app"):
 
