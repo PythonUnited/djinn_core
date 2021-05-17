@@ -146,7 +146,7 @@ $(document).ready(function() {
                         name: e.currentTarget.name
                     }).appendTo(e.currentTarget.form);
 
-                   if ($(e.currentTarget).is([type=submit])) {
+                   if ($(e.currentTarget).is("[type=submit]")) {
                      return;
                    }
                    $(e.currentTarget).addClass("disabled");
