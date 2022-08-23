@@ -98,3 +98,8 @@ def implements(instance, clazz):
 @register.simple_tag
 def object_to_urn(object):
     return utils_object_to_urn(object)
+
+
+@register.inclusion_tag('gronet_v3/includes/okay_notokay_icon.html')
+def okay_notokay_icon(okay):
+    return {"show_okay": okay}
