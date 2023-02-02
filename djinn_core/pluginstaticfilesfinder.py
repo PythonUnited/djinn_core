@@ -5,7 +5,7 @@ from collections import OrderedDict
 from django.contrib.staticfiles.finders import AppDirectoriesFinder
 from django.contrib.staticfiles.storage import FileSystemStorage
 from importlib import import_module
-from django.utils._os import upath
+# from django.utils._os import upath
 
 
 class FlexiblePathStorage(FileSystemStorage):
@@ -22,7 +22,8 @@ class FlexiblePathStorage(FileSystemStorage):
         del kwargs['source_dir']
 
         mod = import_module(app)
-        mod_path = os.path.dirname(upath(mod.__file__))
+        # mod_path = os.path.dirname(upath(mod.__file__))
+        mod_path = os.path.dirname(mod.__file__)
         location = os.path.join(mod_path, self.source_dir)
 
         super(FlexiblePathStorage, self).__init__(location, *args, **kwargs)
