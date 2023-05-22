@@ -3,7 +3,6 @@ if sys.version_info[0] < 3:
     from HTMLParser import HTMLParser
 else:
     from html.parser import HTMLParser
-from html.parser import HTMLParser
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 from django.core.cache import cache
